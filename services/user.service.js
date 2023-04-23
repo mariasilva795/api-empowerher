@@ -74,6 +74,8 @@ class UserService {
   }
 
   async delete(id) {
+    const client = await getConnection();
+
     let deleteQuery = {
       text: 'DELETE FROM users WHERE id = $1',
       values: [id], 

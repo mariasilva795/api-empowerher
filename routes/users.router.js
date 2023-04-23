@@ -7,14 +7,13 @@ const router = express.Router();
 const service = new UserService();
 
 router.get('/', async (req, res, next) => {
-  console.log("holaaa");
   try {
     const categories = await service.find();
     res.json(categories);
   } catch (error) {
     next(error);
   }
-});
+}); 
 
 router.get('/:id',
   async (req, res, next) => {
@@ -53,34 +52,17 @@ router.patch('/:id',
   }
 );
 
-// router.patch('/:id',
-//   async (req, res, next) => {    
-//     try {
-      
-//       const { id } = req.params;
-//       const { name, password } = req.body;
-
-//       res.status(201).json({name});
-   
-  
-//     } catch (error) {
-//       next(error);
-//     }
-//   }
-// );
-
-// router.delete('/:id',
-//   validatorHandler(getUserSchema, 'params'),
-//   async (req, res, next) => {
-//     try {
-//       const { id } = req.params;
-//       await service.delete(id);
-//       res.status(201).json({id});
-//     } catch (error) {
-//       next(error);
-//     }
-//   }
-// );
+router.delete('/:id',
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      await service.delete(id);
+      res.status(201).json({id});
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 module.exports = router;
 
